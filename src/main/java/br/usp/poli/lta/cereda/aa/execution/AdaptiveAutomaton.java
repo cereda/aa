@@ -26,6 +26,7 @@ import br.usp.poli.lta.cereda.aa.model.sets.ActionsSet;
 import br.usp.poli.lta.cereda.aa.model.sets.SubmachinesSet;
 import br.usp.poli.lta.cereda.aa.model.sets.Mapping;
 import br.usp.poli.lta.cereda.aa.utils.RecognitionPath;
+import com.rits.cloning.Cloner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,6 +73,10 @@ public abstract class AdaptiveAutomaton {
     // encerrar, pelo menos, uma execução obtendo resultado
     private boolean stopAtFirstFinishedRecognitionPath;
     
+    // objeto que representa uma referência ao autômato
+    // adaptativo corrente
+    private AdaptiveAutomaton reference;
+        
     /**
      * Construtor.
      */
@@ -95,6 +100,10 @@ public abstract class AdaptiveAutomaton {
         // define que, inicialmente, o autômato só interromperá o processo de
         // reconhecimento quando todas as instâncias encerrarem-se
         stopAtFirstFinishedRecognitionPath = false;
+        
+        // define a referência inicial do autômato adaptativo
+        reference = null;
+            
     }
     
     /**
@@ -140,6 +149,14 @@ public abstract class AdaptiveAutomaton {
      * @return Mapa contendo os caminhos de reconhecimento.
      */
     public Map<Integer, RecognitionPath> getRecognitionMap() {
+        return reference.getRecognitionMapOnce();
+    }
+    
+    /**
+     * Obtém, apenas uma vez, o mapa contendo os caminhos de reconhecimento.
+     * @return Mapa contendo os caminhos de reconhecimento.
+     */
+    private Map<Integer, RecognitionPath> getRecognitionMapOnce() {
         return paths;
     }
     
@@ -149,6 +166,16 @@ public abstract class AdaptiveAutomaton {
      * @return Lista de todos os caminhos de reconhecimento.
      */
     public List<RecognitionPath> getRecognitionPaths() {
+        return reference.getRecognitionPathsOnce();
+    }
+    
+    /**
+     * Obtém, apenas uma vez, a lista contendo todos os caminhos de
+     * reconhecimento obtidos
+     * durante a execução do autômato adaptativo.
+     * @return Lista de todos os caminhos de reconhecimento.
+     */
+    private List<RecognitionPath> getRecognitionPathsOnce() {
         List<RecognitionPath> result = new ArrayList<>();
         for (int key : paths.keySet()) {
             result.add(paths.get(key));
@@ -163,6 +190,27 @@ public abstract class AdaptiveAutomaton {
      * a cadeia de entrada.
      */
     public boolean recognize(List<Symbol> input) {
+        
+        // cria um objeto de clonagem para realizar
+        // a cópia do autômato adaptativo corrente
+        Cloner dolly = new Cloner();
+        
+        // cria um clone do autômato corrente
+        reference = dolly.deepClone(this);
+        
+        // inicia o processo de reconhecimento da lista de
+        // símbolos, retornando o resultado
+        return reference.recognizeOnce(input);
+    }
+    
+    /**
+     * Reconhece, apenas uma vez, uma lista de símbolos representado a cadeia
+     * de entrada.
+     * @param input Lista de símbolos representando a cadeia de entrada.
+     * @return Um valor lógico informando se o autômato adaptativo reconheceu
+     * a cadeia de entrada.
+     */
+    private boolean recognizeOnce(List<Symbol> input) {
         
         // realiza a configuração e verifica se a submáquina
         // principal não é nula
