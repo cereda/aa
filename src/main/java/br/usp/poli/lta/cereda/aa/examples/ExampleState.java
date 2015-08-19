@@ -30,8 +30,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  */
 public class ExampleState extends State {
 
+    // nome do estado
     private String value;
 
+    /**
+     * Construtor.
+     * @param value Nome do estado.
+     */
     public ExampleState(String value) {
         this.value = value;
     }
@@ -52,10 +57,18 @@ public class ExampleState extends State {
         }
     }
 
+    /**
+     * Obtém o nome do estado.
+     * @return Nome do estado.
+     */
     public String getValue() {
         return value;
     }
 
+    /**
+     * Define o nome do estado.
+     * @param value Nome do estado.
+     */
     public void setValue(String value) {
         this.value = value;
     }

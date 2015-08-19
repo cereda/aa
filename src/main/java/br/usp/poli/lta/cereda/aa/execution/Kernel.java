@@ -470,6 +470,14 @@ public class Kernel extends Thread {
                                         // como verdadeiro, isto é, a cadeia foi
                                         // aceita!
                                         paths.get(identifier).setResult(true);
+                                        
+                                        // define a posição final do cursor da
+                                        // cadeia de entrada
+                                        paths.get(identifier).setCursor(cursor);
+                                        
+                                        // define o estado final do processo
+                                        // de reconhecimento
+                                        paths.get(identifier).setState(dolly.deepClone(currentState));
 
                                         // informa que a thread pode ser removida
                                         removals.add(identifier);
@@ -491,6 +499,14 @@ public class Kernel extends Thread {
                                         // define o resultado do caminho corrente
                                         // como falso, isto é, a cadeia foi rejeitada
                                         paths.get(identifier).setResult(false);
+                                        
+                                        // define a posição final do cursor da
+                                        // cadeia de entrada
+                                        paths.get(identifier).setCursor(cursor);
+                                        
+                                        // define o estado final do processo
+                                        // de reconhecimento
+                                        paths.get(identifier).setState(dolly.deepClone(currentState));
 
                                         // mensagem de log
                                         logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));
@@ -528,6 +544,14 @@ public class Kernel extends Thread {
                                 // define o resultado do caminho corrente
                                 // como falso, isto é, a cadeia foi rejeitada
                                 paths.get(identifier).setResult(false);
+                                
+                                // define a posição final do cursor da
+                                // cadeia de entrada
+                                paths.get(identifier).setCursor(cursor);
+                                
+                                // define o estado final do processo
+                                // de reconhecimento
+                                paths.get(identifier).setState(dolly.deepClone(currentState));
 
                                 // mensagem de log
                                 logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));
@@ -801,6 +825,14 @@ public class Kernel extends Thread {
                                                 // que o autômato reconheceu a cadeia de
                                                 // entrada
                                                 paths.get(identifier).setResult(true);
+                                                
+                                                // define a posição final do cursor da
+                                                // cadeia de entrada
+                                                paths.get(identifier).setCursor(cursor);
+                                                
+                                                // define o estado final do processo
+                                                // de reconhecimento
+                                                paths.get(identifier).setState(dolly.deepClone(currentState));
 
                                                 // mensagem de log
                                                 logger.debug(new SimpleMessage("[Thread %d] A cadeia foi aceita.", identifier));
@@ -858,6 +890,14 @@ public class Kernel extends Thread {
                                                 // corrente resultou na rejeição da cadeia
                                                 // de entrada
                                                 paths.get(identifier).setResult(false);
+                                                
+                                                // define a posição final do cursor da
+                                                // cadeia de entrada
+                                                paths.get(identifier).setCursor(cursor);
+                                                
+                                                // define o estado final do processo
+                                                // de reconhecimento
+                                                paths.get(identifier).setState(dolly.deepClone(currentState));
 
                                                 // mensagem de log
                                                 logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));
@@ -987,6 +1027,14 @@ public class Kernel extends Thread {
                                 // não há para onde ir, a cadeia
                                 // está rejeitada
                                 paths.get(identifier).setResult(false);
+                                
+                                // define a posição final do cursor da
+                                // cadeia de entrada
+                                paths.get(identifier).setCursor(cursor);
+                                
+                                // define o estado final do processo
+                                // de reconhecimento
+                                paths.get(identifier).setState(dolly.deepClone(currentState));
 
                                 // mensagem de log
                                 logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));
@@ -1036,6 +1084,14 @@ public class Kernel extends Thread {
                                     // não há para onde ir e a cadeia é,
                                     // portanto, rejeitada
                                     paths.get(identifier).setResult(false);
+                                    
+                                    // define a posição final do cursor da
+                                    // cadeia de entrada
+                                    paths.get(identifier).setCursor(cursor);
+                                    
+                                    // define o estado final do processo
+                                    // de reconhecimento
+                                    paths.get(identifier).setState(dolly.deepClone(currentState));
 
                                     // mensagem de log
                                     logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));
@@ -1880,6 +1936,14 @@ public class Kernel extends Thread {
                             // adiciona o resultado do reconhecimento
                             // no caminho de reconhecimento
                             paths.get(identifier).setResult(true);
+                            
+                            // define a posição final do cursor da
+                            // cadeia de entrada
+                            paths.get(identifier).setCursor(cursor);
+                            
+                            // define o estado final do processo
+                            // de reconhecimento
+                            paths.get(identifier).setState(dolly.deepClone(currentState));
 
                             // mensagem de log
                             logger.debug(new SimpleMessage("[Thread %d] A cadeia foi aceita.", identifier));
@@ -1906,6 +1970,14 @@ public class Kernel extends Thread {
                             // adiciona o resultado do reconhecimento
                             // no caminho de reconhecimento
                             paths.get(identifier).setResult(false);
+                            
+                            // define a posição final do cursor da
+                            // cadeia de entrada
+                            paths.get(identifier).setCursor(cursor);
+                            
+                            // define o estado final do processo
+                            // de reconhecimento
+                            paths.get(identifier).setState(dolly.deepClone(currentState));
 
                             // mensagem de log
                             logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));
@@ -1946,6 +2018,14 @@ public class Kernel extends Thread {
                     // adiciona o resultado de reconhecimento
                     // no caminho de reconhecimento
                     paths.get(identifier).setResult(false);
+                    
+                    // define a posição final do cursor da
+                    // cadeia de entrada
+                    paths.get(identifier).setCursor(cursor);
+                    
+                    // define o estado final do processo
+                    // de reconhecimento
+                    paths.get(identifier).setState(dolly.deepClone(currentState));
 
                     // mensagem de log
                     logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));
@@ -2217,6 +2297,14 @@ public class Kernel extends Thread {
                                     // adiciona um caminho adicional informando
                                     // que a cadeia foi aceita pelo autômato
                                     paths.get(identifier).setResult(true);
+                                    
+                                    // define a posição final do cursor da
+                                    // cadeia de entrada
+                                    paths.get(identifier).setCursor(cursor);
+                                    
+                                    // define o estado final do processo
+                                    // de reconhecimento
+                                    paths.get(identifier).setState(dolly.deepClone(currentState));
 
                                     // mensagem de log
                                     logger.debug(new SimpleMessage("[Thread %d] A cadeia foi aceita.", identifier));
@@ -2273,6 +2361,14 @@ public class Kernel extends Thread {
                                     // informa que a cadeia foi
                                     // rejeitada
                                     paths.get(identifier).setResult(false);
+                                    
+                                    // define a posição final do cursor da
+                                    // cadeia de entrada
+                                    paths.get(identifier).setCursor(cursor);
+                                    
+                                    // define o estado final do processo
+                                    // de reconhecimento
+                                    paths.get(identifier).setState(dolly.deepClone(currentState));
 
                                     // mensagem de log
                                     logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));
@@ -2398,6 +2494,14 @@ public class Kernel extends Thread {
                     // foi rejeitada
                     paths.get(identifier).setResult(false);
                     
+                    // define a posição final do cursor da
+                    // cadeia de entrada
+                    paths.get(identifier).setCursor(cursor);
+                    
+                    // define o estado final do processo
+                    // de reconhecimento
+                    paths.get(identifier).setState(dolly.deepClone(currentState));
+                    
                     // mensagem de log
                     logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));
 
@@ -2451,6 +2555,14 @@ public class Kernel extends Thread {
                         // não há para onde ir, a cadeia é
                         // então rejeitada
                         paths.get(identifier).setResult(false);
+                        
+                        // define a posição final do cursor da
+                        // cadeia de entrada
+                        paths.get(identifier).setCursor(cursor);
+                        
+                        // define o estado final do processo
+                        // de reconhecimento
+                        paths.get(identifier).setState(dolly.deepClone(currentState));
 
                         // mensagem de log
                         logger.debug(new SimpleMessage("[Thread %d] A cadeia foi rejeitada.", identifier));

@@ -23,11 +23,9 @@ import br.usp.poli.lta.cereda.aa.execution.AdaptiveAutomaton;
 import br.usp.poli.lta.cereda.aa.model.Action;
 import br.usp.poli.lta.cereda.aa.model.State;
 import br.usp.poli.lta.cereda.aa.model.Submachine;
-import br.usp.poli.lta.cereda.aa.model.Symbol;
 import br.usp.poli.lta.cereda.aa.model.Transition;
 import br.usp.poli.lta.cereda.aa.model.sets.Mapping;
 import br.usp.poli.lta.cereda.aa.utils.RecognitionPath;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -106,7 +104,7 @@ public class RegularLanguageExample {
             
         };
         
-        boolean resultado = aa.recognize(convert("ab"));
+        boolean resultado = aa.recognize(ExampleUtils.convert("ab"));
         
         System.out.println("Resultado: cadeia "
                 .concat(resultado == true ? "aceita" : "rejeitada"));
@@ -117,20 +115,6 @@ public class RegularLanguageExample {
         for (RecognitionPath rp : aa.getRecognitionPaths()) {
             System.out.println(rp);
         }
-
-    }
-    
-    /**
-     * Converte uma string em uma lista de símbolos.
-     * @param text String de entrada.
-     * @return Uma lista de símbolos.
-     */
-    private static ArrayList<Symbol> convert(final String text) {
-        ArrayList<Symbol> result = new ArrayList<>();
-        for (int i = 0; i < text.length(); i++) {
-            result.add(new ExampleSymbol(text.substring(i, i + 1)));
-        }
-        return result;
     }
     
 }

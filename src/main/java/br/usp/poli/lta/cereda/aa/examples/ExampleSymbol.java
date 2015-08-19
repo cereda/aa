@@ -30,6 +30,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  */
 public class ExampleSymbol extends Symbol {
 
+    // valor do símbolo
     private String value;
 
     public ExampleSymbol(String value) {
@@ -52,10 +53,18 @@ public class ExampleSymbol extends Symbol {
         }
     }
 
+    /**
+     * Obtém o valor do símbolo.
+     * @return Valor do símbolo.
+     */
     public String getValue() {
         return value;
     }
 
+    /**
+     * Define o valor do símbolo.
+     * @param value Valor do símbolo.
+     */
     public void setValue(String value) {
         this.value = value;
     }

@@ -19,6 +19,7 @@
 **/
 package br.usp.poli.lta.cereda.aa.utils;
 
+import br.usp.poli.lta.cereda.aa.model.State;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +34,13 @@ import java.util.List;
 public class RecognitionPath {
 
     // atributos da classe, contendo um identificador unívoco, uma lista de
-    // strings contendo todos os passos de reconhecimento, e uma variável lógica
-    // indicando o resultado do processo de reconhecimento representado através
-    // do objeto em questão
+    // strings contendo todos os passos de reconhecimento, a posição corrente
+    // do cursor, o estado final, e uma variável lógica indicando o resultado
+    // do processo de reconhecimento representado através do objeto em questão
     private int identifier;
     private List<String> path;
+    private int cursor;
+    private State state;
     private Boolean result;
 
     /**
@@ -47,6 +50,8 @@ public class RecognitionPath {
         identifier = IdentifierUtils.getRecognitionPathIdentifier();
         path = new ArrayList<>();
         result = null;
+        cursor = 0;
+        state = null;
     }
 
     /**
@@ -121,6 +126,41 @@ public class RecognitionPath {
         this.path.add(path);
     }
 
+    /**
+     * Obtém a posição do cursor da cadeia de entrada.
+     * @return Valor inteiro representando a posição do cursor da cadeia de
+     * entrada.
+     */
+    public int getCursor() {
+        return cursor;
+    }
+
+    /**
+     * Define o valor do cursor da cadeia de entrada.
+     * @param cursor Valor inteiro do cursor da cadeia de entrada.
+     */
+    public void setCursor(int cursor) {
+        this.cursor = cursor;
+    }
+
+    /**
+     * Obtém o estado final do processo de reconhecimento da cadeia de entrada.
+     * @return Estado final do processo de reconhecimento da cadeia de entrada.
+     */
+    public State getState() {
+        return state;
+    }
+
+    /**
+     * Define o valor do estado final do processo de reconhecimento da cadeia
+     * de entrada.
+     * @param state Estado final do processo de reconhecimento da cadeia de
+     * entrada.
+     */
+    public void setState(State state) {
+        this.state = state;
+    }
+    
     /**
      * Fornece uma representação textual do objeto corrente.
      * @return Uma representação textual do caminho de reconhecimento do

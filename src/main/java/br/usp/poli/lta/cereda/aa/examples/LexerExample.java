@@ -26,17 +26,20 @@ import br.usp.poli.lta.cereda.aa.model.Submachine;
 import br.usp.poli.lta.cereda.aa.model.Symbol;
 import br.usp.poli.lta.cereda.aa.model.Transition;
 import br.usp.poli.lta.cereda.aa.model.sets.Mapping;
-import br.usp.poli.lta.cereda.aa.utils.RecognitionPath;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
- * Exemplo de reconhecimento de uma linguagem livre de contexto. A linguagem
- * livre de contexto, neste caso, é 'a^n b^n', com 'n' maior ou igual a zero.
+ * Exemplo de implementação de um analisador léxico simples, que reconhece
+ * palavras e números.
  * @author Paulo Roberto Massa Cereda
  * @version 1.0
  * @since 1.0
  */
-public class ContextFreeLanguageExample {
+public class LexerExample {
+    
+    final static List<ExampleToken> tokens = new ArrayList<>();
     
     /**
      * Método principal.
@@ -49,20 +52,25 @@ public class ContextFreeLanguageExample {
             @Override
             public void setup() {
                 
-                State q0 = new ExampleState("q0");
-                State q1 = new ExampleState("q1");
-                State q2 = new ExampleState("q2");
-                State q3 = new ExampleState("q3");
+                ExampleState q0 = new ExampleState("q0");
+                ExampleState q1 = new ExampleState("q1");
+                ExampleState q2 = new ExampleState("q2");
+                ExampleState q3 = new ExampleState("q3");
+                ExampleState q4 = new ExampleState("q4");
                 
                 HashSet<State> states = new HashSet<>();
                 states.add(q0);
                 states.add(q1);
                 states.add(q2);
                 states.add(q3);
+                states.add(q4);
                 
                 HashSet<State> accept = new HashSet<>();
                 accept.add(q0);
+                accept.add(q1);
+                accept.add(q2);
                 accept.add(q3);
+                accept.add(q4);
                 
                 Submachine M = new Submachine("M", states, q0, accept);
                 
@@ -71,7 +79,10 @@ public class ContextFreeLanguageExample {
                     @Override
                     public void execute(Mapping transitions,
                             Transition transition, Object... parameters) {
-                        System.out.println("Consumi A");
+                        ExampleToken token = new ExampleToken();
+                        token.setId(String.valueOf(parameters[0]));
+                        token.setValue(String.valueOf(parameters[1]));
+                        tokens.add(token);
                     }
                 };
                 
@@ -80,49 +91,64 @@ public class ContextFreeLanguageExample {
                     @Override
                     public void execute(Mapping transitions,
                             Transition transition, Object... parameters) {
-                        System.out.println("Consumi B");
+                        tokens.get(tokens.size() - 1).setValue(
+                                tokens.get(tokens.size() - 1).getValue().
+                                        concat(String.valueOf(parameters[0])));
                     }
                 };
-                
+               
                 actions.add(withA);
                 actions.add(withB);
                 
-                Symbol a = new ExampleSymbol("a");
-                Symbol b = new ExampleSymbol("b");
-                
-                Transition t1 = new Transition();
-                t1.setTransition(q0, a, q1);
-                t1.setPostActionCall("A");
-                
-                Transition t2 = new Transition();
-                t2.setSubmachineCall(q1, "M", q2);
-                
-                Transition t3 = new Transition();
-                t3.setTransition(q2, b, q3);
-                t3.setPostActionCall("B");
-                
                 submachines.add(M);
-                transitions.add(t1);
-                transitions.add(t2);
-                transitions.add(t3);
+                
+                List<Transition> ts;
+                
+                ts = ExampleUtils.
+                        create("0123456789", q0, q1, "A", "number");
+                for (Transition t : ts) {
+                    transitions.add(t);
+                }
+                
+                ts = ExampleUtils.
+                        create("abcdefghijklmnopqrstuvwxyz", q0, q2, "A", "word");
+                for (Transition t : ts) {
+                    transitions.add(t);
+                }
+                
+                ts = ExampleUtils.
+                        create("0123456789", q1, q1, "B");
+                for (Transition t : ts) {
+                    transitions.add(t);
+                }
+                
+                ts = ExampleUtils.
+                        create("abcdefghijklmnopqrstuvwxyz", q2, q2, "B");
+                for (Transition t : ts) {
+                    transitions.add(t);
+                }
                 
                 setMainSubmachine("M");
-                                
+                
             }
             
         };
         
-        boolean resultado = aa.recognize(ExampleUtils.convert("aabb"));
+        List<Symbol> symbols = ExampleUtils.convert("hello world 123");
         
-        System.out.println("Resultado: cadeia "
-                .concat(resultado == true ? "aceita" : "rejeitada"));
-        System.out.print("Reconhecimento determinístico? ");
-        System.out.println(
-                ExampleUtils.getAnswer(aa.getRecognitionPaths().size() == 1)
-        );
-        for (RecognitionPath rp : aa.getRecognitionPaths()) {
-            System.out.println(rp);
-        }
-    }
+        int size = symbols.size();
+        int compare = 0;
+        
+        do {
+            symbols = symbols.subList(compare, size);
+            aa.recognize(symbols);
+            size = symbols.size();
+            compare = aa.getRecognitionPaths().get(0).getCursor() == compare ?
+                    compare + 1 : aa.getRecognitionPaths().get(0).getCursor();
+        } while (size > compare);
+        
+        System.out.println(tokens);
 
+    }
+   
 }
