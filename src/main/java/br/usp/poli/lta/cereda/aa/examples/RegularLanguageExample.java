@@ -23,14 +23,16 @@ import br.usp.poli.lta.cereda.aa.execution.AdaptiveAutomaton;
 import br.usp.poli.lta.cereda.aa.model.Action;
 import br.usp.poli.lta.cereda.aa.model.State;
 import br.usp.poli.lta.cereda.aa.model.Submachine;
+import br.usp.poli.lta.cereda.aa.model.Symbol;
 import br.usp.poli.lta.cereda.aa.model.Transition;
 import br.usp.poli.lta.cereda.aa.model.sets.Mapping;
 import br.usp.poli.lta.cereda.aa.utils.RecognitionPath;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Exemplo de reconhecimento de uma linguagem regular. A linguagem regular,
- * neste caso, é 'ab'.
+ * neste caso, é '(ab)+'.
  * @author Paulo Roberto Massa Cereda
  * @version 1.0
  * @since 1.0
@@ -48,16 +50,16 @@ public class RegularLanguageExample {
             @Override
             public void setup() {
                 
-                ExampleState q0 = new ExampleState("q0");
-                ExampleState q1 = new ExampleState("q1");
-                ExampleState q2 = new ExampleState("q2");
+                State q0 = new ExampleState("q0");
+                State q1 = new ExampleState("q1");
+                State q2 = new ExampleState("q2");
                 
-                HashSet<State> states = new HashSet<>();
+                Set<State> states = new HashSet<>();
                 states.add(q0);
                 states.add(q1);
                 states.add(q2);
                 
-                HashSet<State> accept = new HashSet<>();
+                Set<State> accept = new HashSet<>();
                 accept.add(q2);
                 
                 Submachine M = new Submachine("M", states, q0, accept);
@@ -83,8 +85,8 @@ public class RegularLanguageExample {
                 actions.add(withA);
                 actions.add(withB);
                 
-                ExampleSymbol a = new ExampleSymbol("a");
-                ExampleSymbol b = new ExampleSymbol("b");
+                Symbol a = new ExampleSymbol("a");
+                Symbol b = new ExampleSymbol("b");
                 
                 Transition t1 = new Transition();
                 t1.setTransition(q0, a, q1);
@@ -94,9 +96,14 @@ public class RegularLanguageExample {
                 t2.setTransition(q1, b, q2);
                 t2.setPostActionCall("B");
                 
+                Transition t3 = new Transition();
+                t3.setTransition(q2, a, q1);
+                t3.setPostActionCall("A");
+                
                 submachines.add(M);
                 transitions.add(t1);
                 transitions.add(t2);
+                transitions.add(t3);
                 
                 setMainSubmachine("M");
                 

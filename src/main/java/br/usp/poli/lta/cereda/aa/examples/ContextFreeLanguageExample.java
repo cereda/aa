@@ -28,6 +28,7 @@ import br.usp.poli.lta.cereda.aa.model.Transition;
 import br.usp.poli.lta.cereda.aa.model.sets.Mapping;
 import br.usp.poli.lta.cereda.aa.utils.RecognitionPath;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Exemplo de reconhecimento de uma linguagem livre de contexto. A linguagem
@@ -54,13 +55,13 @@ public class ContextFreeLanguageExample {
                 State q2 = new ExampleState("q2");
                 State q3 = new ExampleState("q3");
                 
-                HashSet<State> states = new HashSet<>();
+                Set<State> states = new HashSet<>();
                 states.add(q0);
                 states.add(q1);
                 states.add(q2);
                 states.add(q3);
                 
-                HashSet<State> accept = new HashSet<>();
+                Set<State> accept = new HashSet<>();
                 accept.add(q0);
                 accept.add(q3);
                 

@@ -31,6 +31,7 @@ import br.usp.poli.lta.cereda.aa.model.actions.Variable;
 import br.usp.poli.lta.cereda.aa.model.sets.Mapping;
 import br.usp.poli.lta.cereda.aa.utils.RecognitionPath;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Exemplo de reconhecimento de uma linguagem dependente de contexto. A
@@ -57,25 +58,25 @@ public class ContextSensitiveLanguageExample {
             @Override
             public void setup() {
                 
-                ExampleState q0 = new ExampleState("q0");
-                ExampleState q1 = new ExampleState("q1");
-                ExampleState q2 = new ExampleState("q2");
-                ExampleState q3 = new ExampleState("q3");
+                State q0 = new ExampleState("q0");
+                State q1 = new ExampleState("q1");
+                State q2 = new ExampleState("q2");
+                State q3 = new ExampleState("q3");
                 
-                HashSet<State> states = new HashSet<>();
+                Set<State> states = new HashSet<>();
                 states.add(q0);
                 states.add(q1);
                 states.add(q2);
                 states.add(q3);
                 
-                HashSet<State> accept = new HashSet<>();
+                Set<State> accept = new HashSet<>();
                 accept.add(q3);
                 
                 Submachine M = new Submachine("M", states, q0, accept);
 
-                ExampleSymbol a = new ExampleSymbol("a");
-                ExampleSymbol b = new ExampleSymbol("b");
-                ExampleSymbol c = new ExampleSymbol("c");
+                Symbol a = new ExampleSymbol("a");
+                Symbol b = new ExampleSymbol("b");
+                Symbol c = new ExampleSymbol("c");
                 
                 Transition t1 = new Transition();
                 t1.setTransition(q0, a, q1);

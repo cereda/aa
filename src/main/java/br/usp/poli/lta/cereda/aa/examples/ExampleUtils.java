@@ -38,7 +38,7 @@ public class ExampleUtils {
      * @param text String de entrada.
      * @return Uma lista de símbolos.
      */
-    public static ArrayList<Symbol> convert(final String text) {
+    public static List<Symbol> convert(final String text) {
         ArrayList<Symbol> result = new ArrayList<>();
         for (int i = 0; i < text.length(); i++) {
             result.add(new ExampleSymbol(text.substring(i, i + 1)));
